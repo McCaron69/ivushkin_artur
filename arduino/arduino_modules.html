@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>Датчика ультрафиолетового излучения GYML8511</h1>
+		<table border="0" cellspacing="10" cellpadding="10">
+			<tr>
+				<td style="border-style: solid">
+					<img width="300px" src="images\GYML8511-002.jpg" alt="Датчик GYML8511">
+				</td>
+				<td style="border-style: solid">
+					<img width="300px" src="images\GYML8511-02.jpg" alt="Схема подключения GYML8511">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="600px" style="border-style: dashed">Работа чипа ML8511 основана на фотовольтаическом эффекте. 
+				Рабочая поверхность ультрафиолетового светодиода поглощает часть 
+				электромагнитного излучения УФ диапазона UV-A и UV-B, при этом электроны, 
+				получая энергию фотонов, переходят на внешний энергетический уровень, 
+				где становятся свободными. Увеличение количества свободных электронов 
+				приводит к возникновение тока, который затем усиливается операционным усилителем. 
+				Уровень напряжения на выходе OUT прямо пропорционален силе тока протекающего через 
+				ультрафиолетовый светодиод, а следовательно, интенсивности ультрафиолетового излучения.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-style: dashed;text-align:left;">
+				<code>
+<pre>
+// пин подключения датчика
+const int pinGYML8511=A1;
+
+void setup() {
+
+	// запуск последовательного порта
+
+	Serial.begin(9600);
+
+}
+
+void loop() {
+
+	// чтение показаний датчика с аналогового вывода
+
+	// и отправка их в монитор последовательного порта
+
+	Serial.println(analogRead(pinGYML8511));
+
+	// Устанавливаем задержку на пол секунды
+
+	delay(500);
+
+}
+</pre>
+				</code>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-style: dashed"><em><a href="https://3d-diy.ru/wiki/arduino-datchiki/datchik-uf-GYML8511/">Нажмите для перехода к источнику</a></em></td>
+			</tr>
+		</table> <br/>
+		<h1>Датчика ультрафиолетового излучения ACS712</h1>
+		<table border="0" cellspacing="10" cellpadding="10">
+			<tr>
+				<td style="border-style: solid">
+					<img width="300px" src="images\ACS712.jpg" alt="Датчик ACS712">
+				</td>
+				<td style="border-style: solid">
+					<img width="300px" src="images\Scheme-ACS712.jpg" alt="Схема подключения ACS712">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="600px" style="border-style: dashed">
+				Для измерения тока датчик подключается в разрыв цепи 
+				между источником питания и нагрузкой.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-style: dashed;text-align:left;">
+				<code>
+<pre>
+// пин подключения контакта OUT
+
+#define PIN_OUT A0
+
+// подключение библиотеки
+
+#include <TroykaCurrent.h>
+
+// создание объекта
+
+ACS712 dataI(PIN_OUT);
+
+void setup()
+{
+	// запуск последовательного порта
+	Serial.begin(9600);
+}
+
+void loop()
+{
+	// вывод показаний в последовательный порт
+	Serial.print("i = ");
+	Serial.print(dataI.readCurrentDC());
+	Serial.println(" A");
+	delay(1000);
+}
+</pre>
+				</code>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-style: dashed"><em><a href="https://3d-diy.ru/wiki/arduino-datchiki/datchik-toka-acs712/">Нажмите для перехода к источнику</a></em></td>
+			</tr>
+		</table> <br/>
+		<h1>Датчик цвета TCS230</h1>
+		<table border="0" cellspacing="10" cellpadding="10">
+			<tr>
+				<td style="border-style: solid">
+					<img width="300px" src="images\tcs230.jpg" alt="Датчик цвета TCS230">
+				</td>
+				<td style="border-style: solid">
+					<img width="300px" src="images\scheme-tcs230.jpg" alt="Схема подключения TCS230">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="600px" style="border-style: dashed">
+					Модуль датчика TCS230 предназначен для определения цвета предмета.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-style: dashed;text-align:left;">
+				<code>
+<pre>
+// Пины подключения
+
+int pinS0=4;
+int pinS1=5;
+int pinS2=6;
+int pinS3=7;
+int pinOut=8;
+int freq=0;
+
+void setup() {
+	// сконфигурировать пины
+
+	pinMode(pinS0, 1);
+	pinMode(pinS1, 1);
+	pinMode(pinS2, 1);
+	pinMode(pinS3, 1);
+	pinMode(pinOut, 0);
+	
+	// масштабирование 20%
+	digitalWrite(pinS0,1);
+	digitalWrite(pinS1,0);
+
+	Serial.begin(9600);
+}
+
+void loop() {
+	// установить R фильтр
+	digitalWrite(pinS2,0);
+	digitalWrite(pinS3,0);
+
+	// Получение частоты на выходе
+	freq = pulseIn(pinOut, 0);
+
+	// вывод в последовательный порт
+	Serial.print("R= ");
+	Serial.print(freq);
+	delay(150);
+
+	// установить G фильтр
+	digitalWrite(pinS2,1);
+	digitalWrite(pinS3,1);
+
+	// Получение частоты на выходе
+	freq = pulseIn(pinOut, 0);
+
+	// вывод в последовательный порт
+	Serial.print(" G= ");
+	Serial.print(freq);
+	delay(150);
+
+	// установить B фильтр
+	digitalWrite(pinS2,0);
+	digitalWrite(pinS3,1);
+
+	// Получение частоты на выходе
+	freq = pulseIn(pinOut, 0);
+
+	// вывод в последовательный порт
+	Serial.print(" B= ");
+	Serial.println(freq);
+	delay(150);
+}
+</pre>
+				</code>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-style: dashed"><em><a href="https://3d-diy.ru/wiki/arduino-datchiki/datchik-tsveta-tcs230/">Нажмите для перехода к источнику</a></em></td>
+			</tr>
+		</table>
+	</body>
+</html>
