@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Формы</title>
+    <script language="javascript">
+        function pluss()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = peremennaja1 + peremennaja2;
+            document.anketa.otvet.value = rezultat;
+            //alert(rezultat);
+        }
+        function minus()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = peremennaja1 - peremennaja2;
+            document.anketa.otvet.value = rezultat;
+        }
+        function umnozenije()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = peremennaja1 * peremennaja2;
+            document.anketa.otvet.value = rezultat;
+        }
+        function delenije()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = peremennaja1 / peremennaja2;
+            document.anketa.otvet.value = rezultat;
+        }
+        function pov()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = Math.pow(peremennaja1, peremennaja2);
+            document.anketa.otvet.value = rezultat;
+        }
+        function sqrt()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = Math.sqrt(peremennaja1);
+			rezultat2 = Math.sqrt(peremennaja2);
+            document.anketa.otvet.value = "A = " + rezultat + " B = " + rezultat2;
+        }
+        function sin()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = Math.sin(peremennaja1);
+			rezultat2 = Math.sin(peremennaja2);
+            document.anketa.otvet.value = "A = " + rezultat + " B = " + rezultat2;
+        }
+        function cos()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = Math.cos(peremennaja1);
+			rezultat2 = Math.cos(peremennaja2);
+            document.anketa.otvet.value = "A = " + rezultat + " B = " + rezultat2;
+        }
+        function tan()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = Math.tan(peremennaja1);
+			rezultat2 = Math.tan(peremennaja2);
+            document.anketa.otvet.value = "A = " + rezultat + " B = " + rezultat2;
+        }
+        function ctg()
+        {
+            peremennaja1 = parseFloat(document.anketa.odin.value);
+            peremennaja2 = parseFloat(document.anketa.dva.value);
+            rezultat = 1 / Math.tan(peremennaja1);
+			rezultat2 = 1 / Math.tan(peremennaja2);
+            document.anketa.otvet.value = "A = " + rezultat + " B = " + rezultat2;
+        }
+    </script>
+</head>
+<body>
+    <form name="anketa" method="GET" action="">
+        A=<input type="text" name="odin"/></br>
+        B=<input type="text" name="dva"/></br>
+        C=<input type="text" name="otvet"/></br>
+        <input type="button" value="+" onclick="pluss()"/>
+        <input type="button" value="-" onclick="minus()"/>
+        <input type="button" value="*" onclick="umnozenije()"/>
+        <input type="button" value="/" onclick="delenije()"/>
+        <input type="button" value="^" onclick="pov()"/>    <!-- A в степени B -->
+        <input type="button" value="sqrt" onclick="sqrt()"/>
+        <input type="button" value="sin" onclick="sin()"/>
+        <input type="button" value="cos" onclick="cos()"/>
+        <input type="button" value="tan" onclick="tan()"/>
+        <input type="button" value="ctg" onclick="ctg()"/>
+        
+    </form>
+</body>
+</html>
