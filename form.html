@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Анкета</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Подключаем jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Подключаем плагин Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <!-- Подключаем Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <style media="screen">
+      body {
+        width: 960px;
+        margin: 30px auto 0 auto;
+      }
+
+      fieldset {
+        margin-bottom: 15px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form name="mainForm" onsubmit="checkForm();">
+      <fieldset>
+        <legend>Персональная информация</legend>
+        <div class="form-group row">
+          <label for="formControlName" class="col-sm-3 col-form-label">Имя</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="formControlName" placeholder="Введите Ваше имя" maxlength="50" required pattern="^[A-ZА-ЯЁÕÄÖÜ]{1}([a-zA-Zõäöü]+)?"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="formControlSurname" class="col-sm-3 col-form-label">Фамилия</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="formControlSurname" placeholder="Введите Вашу фамилию" maxlength="50" required pattern="^[A-ZА-ЯЁÕÄÖÜ]{1}([a-zA-Zõäöü]+)?"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="formControlPersonalID" class="col-sm-3 col-form-label">Персональный код</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="formControlPersonalID" placeholder="Введите Ваш персональный код" required pattern="^[0-9]{11}"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="formControlBirthday" class="col-sm-3 col-form-label">Дата рождения</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="formControlBirthday" placeholder="День.Месяц.Год" required/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="formControlSex" class="col-sm-3 col-form-label">Пол</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm" id="formControlSex">
+              <option>Не выбрано</option>
+              <option>Мужской</option>
+              <option>Женский</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Контактная информация</legend>
+        Способ доставки:
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="contactOption_1" name="contactRadioBtns">
+          <label class="form-check-label" for="contactOption_1">
+            Э-почта
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="contactOption_2" name="contactRadioBtns">
+          <label class="form-check-label" for="contactOption_2">
+            Номер телефона
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="contactOption_3" name="contactRadioBtns">
+          <label class="form-check-label" for="contactOption_3">
+            Другой способ связи
+          </label>
+        </div>
+        <div class="form-group row collapse" id="collapseContactOne">
+          <label for="formControlEmail" class="col-sm-3 col-form-label">Адрес э-почты</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="formControlEmail" placeholder="Введите адрес Вашей электронной почты"/>
+          </div>
+        </div>
+        <div class="form-group row collapse" id="collapseContactTwo">
+          <label for="formControlTelNumber" class="col-sm-3 col-form-label">Номер телефона</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="formControlTelNumber" placeholder="+372 1234 5678"/>
+          </div>
+        </div>
+        <div class="form-group row collapse" id="collapseContactThree">
+          <label for="formControlCommunication" class="col-sm-3 col-form-label">Другой способ связи</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="formControlCommunication" placeholder="Как мы можем с Вами связаться?"/>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Товар</legend>
+        TODO: Переключение между описаниями разных вариантов товара
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Выбор варианта товара</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="" placeholder="Введите Вашу фамилию" required/>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Доставка</legend>
+        Способ доставки:
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="deliveryRadioBtns" id="deliveryOption_1">
+          <label class="form-check-label" for="deliveryOption_1">
+            Прислать по почте
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="deliveryRadioBtns" id="deliveryOption_2">
+          <label class="form-check-label" for="deliveryOption_2">
+            Заберу из почтового автомата
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="deliveryRadioBtns" id="deliveryOption_3">
+          <label class="form-check-label" for="deliveryOption_3">
+            Заберу сам из представительства
+          </label>
+        </div>
+        <div class="form-group row collapse" id="collapseDeliveryOne">
+          <label for="" class="col-sm-3 col-form-label">Адрес доставки</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control inputStyle" id="" placeholder="Город, улица, дом, квартира, почтовый индекс"/>
+          </div>
+        </div>
+        <div class="form-group row collapse" id="collapseDeliveryTwo">
+          <label for="" class="col-sm-3 col-form-label">Выбор почтового автомата:</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm">
+              <option>Первый</option>
+              <option>Второй</option>
+              <option>Третий</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row collapse" id="collapseDeliveryThree">
+          <label for="" class="col-sm-3 col-form-label">Выбор представительства:</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm">
+              <option>Первый</option>
+              <option>Второй</option>
+              <option>Третий</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+          Я согласен с правилами преодставления услуг.
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
+        <label class="form-check-label" for="defaultCheck1">
+          Подтверждаю, что мне больше 18 лет.
+        </label>
+      </div>
+    </form>
+    <button type="submit" class="btn btn-primary" onclick="checkForm() " style="float:right; margin: 20px;">Готово</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Ошибка</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorModalContent"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Ок</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var deliveryRadioBtn_1 = document.getElementById('deliveryOption_1');
+      var deliveryRadioBtn_2 = document.getElementById('deliveryOption_2');
+      var deliveryRadioBtn_3 = document.getElementById('deliveryOption_3');
+
+      deliveryRadioBtn_1.onclick = function (event) {
+        $("#collapseDeliveryTwo").collapse('hide');
+        $("#collapseDeliveryThree").collapse('hide');
+        $("#collapseDeliveryOne").collapse('show');
+      }
+      deliveryRadioBtn_2.onclick = function (event) {
+        $("#collapseDeliveryOne").collapse('hide');
+        $("#collapseDeliveryThree").collapse('hide');
+        $("#collapseDeliveryTwo").collapse('show');
+      }
+      deliveryRadioBtn_3.onclick = function (event) {
+        $("#collapseDeliveryOne").collapse('hide');
+        $("#collapseDeliveryTwo").collapse('hide')
+        $("#collapseDeliveryThree").collapse('show');
+      }
+
+      var contactRadioBtn_1 = document.getElementById('contactOption_1');
+      var contactRadioBtn_2 = document.getElementById('contactOption_2');
+      var contactRadioBtn_3 = document.getElementById('contactOption_3');
+
+      contactRadioBtn_1.onclick = function (event) {
+        $("#collapseContactTwo").collapse('hide');
+        $("#collapseContactThree").collapse('hide');
+        $("#collapseContactOne").collapse('show');
+      }
+      contactRadioBtn_2.onclick = function (event) {
+        $("#collapseContactOne").collapse('hide');
+        $("#collapseContactThree").collapse('hide');
+        $("#collapseContactTwo").collapse('show');
+      }
+      contactRadioBtn_3.onclick = function (event) {
+        $("#collapseContactOne").collapse('hide');
+        $("#collapseContactTwo").collapse('hide')
+        $("#collapseContactThree").collapse('show');
+      }
+    </script>
+  </body>
+</html>
