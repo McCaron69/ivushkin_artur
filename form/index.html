@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Анкета AI</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+      .flyMenu { position: fixed; top:0px; left:0px; height:40px; width:100%; z-index: 1; }
+      .flyMenu div { background-color: rgba(255, 255, 255, 0.6); }
+      .flyMenu div span { margin: 10px 20px; cursor: pointer; display: inline-block; }
+      .flyMenu div span:hover { color: red; }
+	    .firstRow { margin-top: 60px; }
+    </style>
+    <script type="text/javascript">
+      languageCode = 0;
+      terms = Array();
+
+      terms[0] = Array("Анкета обратной связи", "Имя", "и", "Фамилия", "Личные данные",
+      "Персональный код", "День рождения", "Пол", "Мужской", "Женский", "Другой", "Контакты", "Выбрать", "Э-почта",
+      "Телефонный номер", "Доставка", "Прислать по почте", "Почтовый автомат", "Получить в представительстве",
+      "Я согласен с правилами предоставления услуг.", "Я подтверждаю, что мне есть 18 лет.",
+      "Город, улица, дом, квартира, индекс", "Первый почтовый автомат", "Второй почтовый автомат", "Третий почтовый автомат",
+      "Первое представительство", "Второе представительство", "Третье представительство", "Отправить",
+      "Название товара", "Описание товара");
+      terms[1] = Array("Tagasiside ankeet", "Nimi", "ja", "Perekonnanimi", "Isikuandmed",
+      "Isikukood", "Sünnipäev", "Sugu", "Mees", "Naine", "Teine", "Kontaktid", "Valida", "E-post",
+      "Telefoninumber", "Tarne", "Saata posti teel", "Pakiautomaat", "Saada kätte esinduses",
+      "Olen nõus teenustingimustega.", "Kinnitan, et ma olen vähemalt 18 aastat vana.",
+      "Linn, tänav, maja, korter, indeks", "Esimene pakiautomaat", "Teine pakiautomaat", "Kolmas pakiautomaat",
+      "Esimene esindus", "Teine esindus", "Kolmas esindus", "Saata",
+      "Toote nimetus", "Toote kirjeldus");
+      terms[2] = Array("Feedback questionnaire", "First name", "and", "Last name", "Personal data",
+      "Personal ID", "Birthday", "Gender", "Man", "Woman", "Other", "Contacts", "Choose", "Email",
+      "Phone number", "Delivery", "Send by mail", "Parcel machine", "Dealership",
+      "I agree with the terms of service.", "I confirm, that I am at least 18 years old.",
+      "City, street, house, flat, zip", "First parcel machine", "Second parcel machine", "Third parcel machine",
+      "First dealership", "Second dealership", "Third dealership", "Send",
+      "Product name", "Product description");
+
+      errorLang = Array();
+
+      errorLang[0] = Array("Вы не выбрали товар", "Вы не ввели своё имя", "Вы ввели слишком длинное имя", "Недопустимые символы в имени", "Вы не ввели свою фамилию",
+      "Вы ввели слишком длинное имя", "Недопустимые символы в фамилии", "Вы не ввели свой персональный код", "Персональный код должен состоять из 11 цифр", "Недопустимые символы в персональном коде",
+      "Недопустимые символы или неправильный формат в дне рождения (Пример: 1999-12-31)", "Не выбран пол", "Не выбран контакт", "Вы не ввели свою э-почту", "Вы ввели слишком длинную э-почту",
+      "Недопустимые символы в э-почте", "Номер телефона не введён", "Недопустимые символы в телефонном номере", "Способ связи не введён", "Не выбран способ доставки", "Почтовые данные не введены",
+      "Недопустимые символы в почтовых данных", "Не выбран почтовый автомат", "Не выбрано представительство", "Вы не согласились с правилами предоставления услуг", "Вы не подтвердили, что вам есть 18 лет");
+      errorLang[1] = Array("Te ei valinud tootet", "Te ei sisestanud oma nime", "Sisestatud nimi on liiga pikk", "Nimes on sobimatud sümbolid", "Te ei sisestanud oma perekonnanime",
+      "Sisestatud perekonnanimi on liiga pikk", "Perekonnanimes on sobimatud sümbolid", "Te ei sisestastanud isikukoodi", "Isikukood peab olema 11 arvu pikk", "Isikukoodis on sobimatud sümbolid",
+      "Sobimatud sümbolid või vale sünnipäeva vorming (Näide: 1999-12-31)", "Sugu pole valitud", "Kontaktandmed ei ole valitud", "E-post ei ole sisestatud", "Sisestatud e-post on liiga pikk",
+      "Sobimatud sümbolid e-postis", "Telefoninumber ei ole sisestatud", "Sobimatud sümbolid telefoninumbris", "Suhtlusviis ei ole sisestatud", "Tarnimis viis ei ole valitud", "Postiandmed ei ole sisestatud",
+      "Sobimatud sümbolid postiandmetes", "Pakiautomaat ei ole valitud", "Esindus ei ole valitud", "Te ei nõustunud teenustingimustega", "Te ei kinnitanud et olete vähemalt 18 aastat vana");
+      errorLang[2] = Array("You did\'t select a product.", "You did\'t insert your first name.", "Inserted name is longer than it can be", "Invalid symbols in first name", "You did\'t insert your last name",
+      "Inserted last name is longer than it can be", "Invalid symbols in last name", "You did\'t insert your personal ID", "Personal ID must be 11 digits long", "Invalid symbols in personal ID",
+      "Invalid characters or wrong format in birthday (Example: 1999-12-31)", "Gender isn\'t selected", "Contact isn\'t selected", "Email isn\'t inserted", "Inserted email is too longer that it can be",
+      "Invalid characters in email", "Phone number isn\'t inserted", "Invalid symbols in phone number", "Communication method isn\'t inserted", "Delivery option isn\'t selected", "Postal data isn\'t inserted",
+      "Invalid characters in postal data", "Parcel machine isn\'t selected", "Dealership isn\'t selected", "You didn\'t agree with the terms of service", "You didn\'t confirm that you are at least 18 years old");
+
+      function SetErrorMessages(errorId) {
+        switch(errorId)
+        {
+          case "errorProductSelect": return errorLang[languageCode][0];
+          case "errorFirstNameEmpty": return errorLang[languageCode][1];
+          case "errorFirstNameIsBig": return errorLang[languageCode][2];
+          case "errorFirstNameIsInvalid": return errorLang[languageCode][3];
+          case "errorLastNameEmpty": return errorLang[languageCode][4];
+          case "errorLastNameIsBig": return errorLang[languageCode][5];
+          case "errorLastNameIsInvalid": return errorLang[languageCode][6];
+          case "errorIKEmpty": return errorLang[languageCode][7];
+          case "errorIKIsBig": return errorLang[languageCode][8];
+          case "errorIKIsInvalid": return errorLang[languageCode][9];
+          case "errorBDIsInvalid": return errorLang[languageCode][10];
+          case "errorGenderNotChoosen": return errorLang[languageCode][11];
+          case "errorContactNotChoosen": return errorLang[languageCode][12];
+          case "errorEmailEmpty": return errorLang[languageCode][13];
+          case "errorEmailIsBig": return errorLang[languageCode][14];
+          case "errorEmailIsInvalid": return errorLang[languageCode][15];
+          case "errorTelephoneEmpty": return errorLang[languageCode][16];
+          case "errorTelephoneIsInvalid": return errorLang[languageCode][17];
+          case "errorContactDataEmpty": return errorLang[languageCode][18];
+          case "errorDeliveryNotChoosen": return errorLang[languageCode][19];
+          case "errorMailEmpty": return errorLang[languageCode][20];
+          case "errorMailIsInvalid": return errorLang[languageCode][21];
+          case "errorParcelMachineNotChoosen": return errorLang[languageCode][22];
+          case "errorDealershipNotChoosen": return errorLang[languageCode][23];
+          case "errorTermsNotChecked": return errorLang[languageCode][24];
+          case "errorAgreementNotChecked": return errorLang[languageCode][25];
+        }
+      }
+
+      function SwitchLanguage(n) {
+        languageCode = n;
+        document.getElementById("bigTitle").innerHTML = terms[n][0];
+        document.getElementById("firstAndLastName").innerHTML = terms[n][1] + ' ' + terms[n][2] + ' ' + terms[n][3];
+      	document.getElementById("firstName").placeholder = terms[n][1];
+      	document.getElementById("lastName").placeholder = terms[n][3];
+      	document.getElementById("personalData").innerHTML = terms[n][4];
+      	document.getElementById("userIK").placeholder = terms[n][5];
+      	document.getElementById("userBD").placeholder = terms[n][6];
+      	document.getElementById("userGenderDefault").innerHTML = terms[n][7];
+      	document.getElementById("userGenderMan").innerHTML = terms[n][8];
+      	document.getElementById("userGenderWoman").innerHTML = terms[n][9];
+      	document.getElementById("userGenderOther").innerHTML = terms[n][10];
+      	document.getElementById("contactData").innerHTML = terms[n][11];
+      	document.getElementById("userContactDefault").innerHTML = terms[n][12];
+      	document.getElementById("userContactEmail").innerHTML = terms[n][13];
+      	document.getElementById("userContactTelephone").innerHTML = terms[n][14];
+      	document.getElementById("userContactOther").innerHTML = terms[n][10];
+      	document.getElementById("deliveryData").innerHTML = terms[n][15];
+      	document.getElementById("userDeliveryDefault").innerHTML = terms[n][12];
+      	document.getElementById("userDeliveryMail").innerHTML = terms[n][16];
+      	document.getElementById("userDeliveryParcelMachine").innerHTML = terms[n][17];
+      	document.getElementById("userDeliveryDealership").innerHTML = terms[n][18];
+      	document.getElementById("agreeLabel").innerHTML = terms[n][19];
+      	document.getElementById("confirmLabel").innerHTML = terms[n][20];
+      	document.getElementById("deliveryByMail").placeholder = terms[n][21];
+      	document.getElementById("userParcelMachineDefault").innerHTML = terms[n][12];
+      	document.getElementById("userParcelMachineFirst").innerHTML = terms[n][22];
+      	document.getElementById("userParcelMachineSecond").innerHTML = terms[n][23];
+      	document.getElementById("userParcelMachineThird").innerHTML = terms[n][24];
+      	document.getElementById("userDealershipDefault").innerHTML = terms[n][12];
+      	document.getElementById("userDealershipFirst").innerHTML = terms[n][25];
+      	document.getElementById("userDealershipSecond").innerHTML = terms[n][26];
+      	document.getElementById("userDealershipThird").innerHTML = terms[n][27];
+      	document.getElementById("formButtonOk").innerHTML = terms[n][28];
+      	document.getElementById("firstProductTitle").innerHTML = terms[n][29];
+      	document.getElementById("firstProductDescription").innerHTML = terms[n][30];
+      	document.getElementById("productOne").innerHTML = terms[n][12];
+      	document.getElementById("secondProductTitle").innerHTML = terms[n][29];
+      	document.getElementById("secondProductDescription").innerHTML = terms[n][30];
+      	document.getElementById("productTwo").innerHTML = terms[n][12];
+      	document.getElementById("thirdProductTitle").innerHTML = terms[n][29];
+      	document.getElementById("thirdProductDescription").innerHTML = terms[n][30];
+      	document.getElementById("productThree").innerHTML = terms[n][12];
+      }
+
+      function SwitchContactOption(n) {
+        $("#comEmail").collapse('hide');
+        $("#comTel").collapse('hide');
+        $("#comOther").collapse('hide');
+        switch(n) {
+          case "1": { $("#comEmail").collapse('show'); break; }
+          case "2": { $("#comTel").collapse('show'); break; }
+          case "3": { $("#comOther").collapse('show'); break; }
+        }
+      }
+
+      function SwitchDeliveryOption(n) {
+        $("#deliveryByMail").collapse('hide');
+        $("#deliveryInParcelMachine").collapse('hide');
+        $("#deliveryInDealership").collapse('hide');
+        switch(n) {
+          case "1": { $("#deliveryByMail").collapse('show'); break; }
+          case "2": { $("#deliveryInParcelMachine").collapse('show'); break; }
+          case "3": { $("#deliveryInDealership").collapse('show'); break; }
+        }
+      }
+
+      var productIsSelected = false;
+
+      function SelectProduct(n) {
+        productIsSelected = true;
+        document.getElementById("productOne").className = "btn btn-outline-primary";
+        document.getElementById("productTwo").className = "btn btn-outline-primary";
+        document.getElementById("productThree").className = "btn btn-outline-primary";
+        switch (n)
+        {
+          case 1: {
+            document.getElementById("productOne").className = "btn btn-primary";
+            break;
+          }
+          case 2: {
+            document.getElementById("productTwo").className = "btn btn-primary";
+            break;
+          }
+          case 3: {
+            document.getElementById("productThree").className = "btn btn-primary";
+            break;
+          }
+        }
+      }
+
+      var focusError = '';
+
+      function FormValidation() {
+        errorMessage = '';
+        focusError = '';
+
+        if(productIsSelected != true)
+          errorMessage += '<p>' + SetErrorMessages("errorProductSelect") + '</p>';
+
+        if(document.getElementById("firstName").value == "")
+        {
+          if(focusError == '') focusError = '#firstName';
+          errorMessage += '<p>' + SetErrorMessages("errorFirstNameEmpty") + '</p>';
+        }
+        else if(document.getElementById("firstName").value.length > 128)
+        {
+          if(focusError == '') focusError = '#firstName';
+          errorMessage += '<p>' + SetErrorMessages("errorFirstNameIsBig") + '</p>';
+        }
+        else if(!document.getElementById("firstName").value.match("^[A-Za-zА-Яа-яŽŠÕÄÖÜžšõäöü]+$"))
+        {
+          if(focusError == '') focusError = '#firstName';
+          errorMessage += '<p>' + SetErrorMessages("errorFirstNameIsInvalid") + '</p>';
+        }
+
+        if(document.getElementById("lastName").value == "")
+        {
+          if(focusError == '') focusError = '#lastName';
+          errorMessage += '<p>' + SetErrorMessages("errorLastNameEmpty") + '</p>';
+        }
+        else if(document.getElementById("lastName").value.length > 128)
+        {
+          if(focusError == '') focusError = '#lastName';
+          errorMessage += '<p>' + SetErrorMessages("errorLastNameIsBig") + '</p>';
+        }
+        else if(!document.getElementById("lastName").value.match("^[A-Za-zА-Яа-яŽŠÕÄÖÜžšõäöü]+$"))
+        {
+          if(focusError == '') focusError = '#lastName';
+          errorMessage += '<p>' + SetErrorMessages("errorLastNameIsInvalid") + '</p>';
+        }
+
+        if(document.getElementById("userIK").value == "")
+        {
+          if(focusError == '') focusError = '#userIK';
+          errorMessage += '<p>' + SetErrorMessages("errorIKEmpty") + '</p>';
+        }
+        else if(document.getElementById("userIK").value.length != 11)
+        {
+          if(focusError == '') focusError = '#userIK';
+          errorMessage += '<p>' + SetErrorMessages("errorIKIsBig") + '</p>';
+        }
+        else if(!document.getElementById("userIK").value.match("^[0-9]+$"))
+        {
+          if(focusError == '') focusError = '#userIK';
+          errorMessage += '<p>' + SetErrorMessages("errorIKIsInvalid") + '</p>';
+        }
+
+        if(!document.getElementById("userBD").value.match("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$"))
+        {
+          if(focusError == '') focusError = '#userBD';
+          errorMessage += '<p>' + SetErrorMessages("errorBDIsInvalid") + '</p>';
+        }
+
+        if(document.getElementById("genderOption").value == terms[languageCode][7])
+        {
+          if(focusError == '') focusError = '#genderOption';
+          errorMessage += '<p>' + SetErrorMessages("errorGenderNotChoosen") + '</p>';
+        }
+
+        if(document.getElementById("contactOption").value == terms[languageCode][12])
+        {
+          if(focusError == '') focusError = '#contactOption';
+          errorMessage += '<p>' + SetErrorMessages("errorContactNotChoosen") + '</p>';
+        }
+
+        if(document.getElementById("contactOption").value == "1")
+        {
+          if(document.getElementById("comEmail").value == "")
+          {
+            if(focusError == '') focusError = '#comEmail';
+            errorMessage += '<p>' + SetErrorMessages("errorEmailEmpty") + '</p>';
+          }
+          else if(document.getElementById("comEmail").value.length > 254)
+          {
+            if(focusError == '') focusError = '#comEmail';
+            errorMessage += '<p>' + SetErrorMessages("errorEmailIsBig") + '</p>';
+          }
+          else if(!document.getElementById("comEmail").value.match("^[A-Za-z0-9\.\_\-]+\@[A-Za-z0-9\_]+\.[A-Za-z]+$"))
+          {
+            if(focusError == '') focusError = '#comEmail';
+            errorMessage += '<p>' + SetErrorMessages("errorEmailIsInvalid") + '</p>';
+          }
+        }
+
+        if(document.getElementById("contactOption").value == "2")
+        {
+          if(document.getElementById("comTel").value == "")
+          {
+            if(focusError == '') focusError = '#comTel';
+            errorMessage += '<p>' + SetErrorMessages("errorTelephoneEmpty") + '</p>';
+          }
+          else if(!document.getElementById("comTel").value.match("^[+][0-9\s]+$"))
+          {
+            if(focusError == '') focusError = '#comTel';
+            errorMessage += '<p>' + SetErrorMessages("errorTelephoneIsInvalid") + '</p>';
+          }
+        }
+
+        if(document.getElementById("contactOption").value == "3")
+        {
+          if(document.getElementById("comOther").value == "")
+          {
+            if(focusError == '') focusError = '#comOther';
+            errorMessage += '<p>' + SetErrorMessages("errorContactDataEmpty") + '</p>';
+          }
+        }
+
+        if(document.getElementById("deliveryOption").value == terms[languageCode][12])
+        {
+          if(focusError == '') focusError = '#deliveryOption';
+          errorMessage += '<p>' + SetErrorMessages("errorDeliveryNotChoosen") + '</p>';
+        }
+
+        if(document.getElementById("deliveryOption").value == "1")
+        {
+          if(document.getElementById("deliveryByMail").value == "")
+          {
+            if(focusError == '') focusError = '#deliveryByMail';
+            errorMessage += '<p>' + SetErrorMessages("errorMailEmpty") + '</p>';
+          }
+          else if(!document.getElementById("deliveryByMail").value.match("^[A-Za-zŽŠÕÄÖÜžšõäöü]+\,[A-Za-zŽŠÕÄÖÜžšõäöü]+\,[0-9A-Za-z]+\,[0-9A-Za-z]+\,[0-9]+$"))
+          {
+            if(focusError == '') focusError = '#deliveryByMail';
+            errorMessage += '<p>' + SetErrorMessages("errorMailIsInvalid") + '</p>';
+          }
+        }
+
+        if(document.getElementById("deliveryOption").value == "2")
+        {
+          if(document.getElementById("deliveryInParcelMachine").value == terms[languageCode][12])
+          {
+            if(focusError == '') focusError = '#deliveryInParcelMachine';
+            errorMessage += '<p>' + SetErrorMessages("errorParcelMachineNotChoosen") + '</p>';
+          }
+        }
+
+        if(document.getElementById("deliveryOption").value == "3")
+        {
+          if(document.getElementById("deliveryInDealership").value == terms[languageCode][12])
+          {
+            if(focusError == '') focusError = '#deliveryInDealership';
+            errorMessage += '<p>' + SetErrorMessages("errorDealershipNotChoosen") + '</p>';
+          }
+        }
+
+      	if(document.getElementById("confirmTermsCheck").checked == "") {
+          if(focusError == '') focusError = '#confirmTermsCheck';
+          errorMessage += '<p>' + SetErrorMessages("errorTermsNotChecked") + '</p>';
+      	}
+
+      	if(document.getElementById("agreeTermsCheck").checked == "") {
+          if(focusError == '') focusError = '#agreeTermsCheck';
+          errorMessage += '<p>' + SetErrorMessages("errorAgreementNotChecked") + '</p>';
+      	}
+
+        document.getElementById("errorModalMessage").innerHTML = errorMessage;
+        return errorMessage;
+      }
+
+      function OkButton() {
+        if(FormValidation() != '') {
+          $('#errorModal').modal('show');
+        }
+      }
+      function CloseModal() {
+        $(focusError).focus();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row flyMenu">
+        <div class="col" style="text-align:center;">
+          <span onclick="SwitchLanguage(0)">На русском</span>
+          <span onclick="SwitchLanguage(1)">Eesti keeles</span>
+          <span onclick="SwitchLanguage(2)">In English</span>
+        </div>
+      </div>
+      <div class="row firstRow">
+        <div class="col-8 mx-auto">
+          <form>
+            <h1 class="display-4" id="bigTitle">Анкета обратной связи</h1>
+            <hr/>
+            <div class="input-group">
+              <div class="card col-4">
+                <img class="card-img-top" src="images/item.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title" id="firstProductTitle">Название товара</h5>
+                  <p class="card-text" id="firstProductDescription">Описание товара.</p>
+                  <button type="button" class="btn btn-outline-primary" id="productOne" onclick="SelectProduct(1);">Выбрать</button>
+                </div>
+              </div>
+                <div class="card col-4">
+                <img class="card-img-top" src="images/item.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title" id="secondProductTitle">Название товара</h5>
+                  <p class="card-text" id="secondProductDescription">Описание товара.</p>
+                  <button type="button" class="btn btn-outline-primary" id="productTwo" onclick="SelectProduct(2);">Выбрать</button>
+                </div>
+              </div>
+                <div class="card col-4">
+                <img class="card-img-top" src="images/item.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title" id="thirdProductTitle">Название товара</h5>
+                  <p class="card-text" id="thirdProductDescription">Описание товара.</p>
+                  <button type="button" class="btn btn-outline-primary" id="productThree" onclick="SelectProduct(3);">Выбрать</button>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="firstAndLastName">Имя и Фамилия</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Имя" name="userFirstName" id="firstName">
+              <input type="text" class="form-control" placeholder="Фамилия" name="userLastName" id="lastName">
+            </div>
+            <div class="input-group" style="margin-top: 9px;">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="personalData">Личные данные</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Персональный код" name="userIK" id="userIK">
+              <input type="text" class="form-control" placeholder="День рождения" name="userBD" id="userBD">
+              <select class="custom-select" id="genderOption">
+                <option selected id="userGenderDefault">Пол</option>
+                <option value="1" id="userGenderMan">Мужской</option>
+                <option value="2" id="userGenderWoman">Женский</option>
+                <option value="3" id="userGenderOther">Другой</option>
+              </select>
+            </div>
+            <hr/>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="contactData">Контакты</span>
+              </div>
+              <select class="custom-select" id="contactOption" onchange="SwitchContactOption(value);">
+                <option selected id="userContactDefault">Выбрать</option>
+                <option value="1" id="userContactEmail">Электронная почта</option>
+                <option value="2" id="userContactTelephone">Телефонный номер</option>
+                <option value="3" id="userContactOther">Другой способ связи</option>
+              </select>
+              <input type="text" class="form-control collapse" placeholder="example@gmail.com" name="comEmail" id="comEmail">
+              <input type="text" class="form-control collapse" placeholder="+372 55556666" name="comTel" id="comTel">
+              <input type="text" class="form-control collapse" placeholder="Как мы можем с Вами связаться?" name="comOther" id="comOther">
+            </div>
+            <hr/>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="deliveryData">Способ доставки</span>
+              </div>
+              <select class="custom-select" id="deliveryOption" onchange="SwitchDeliveryOption(value);">
+                <option selected id="userDeliveryDefault">Выбрать</option>
+                <option value="1" id="userDeliveryMail">Прислать по почте</option>
+                <option value="2" id="userDeliveryParcelMachine">Почтовый автомат</option>
+                <option value="3" id="userDeliveryDealership">Получить в представительстве</option>
+              </select>
+              <input type="text" class="form-control collapse" placeholder="Город, улица, дом, квартира, индекс" name="deliveryByMail" id="deliveryByMail">
+              <select class="custom-select collapse" id="deliveryInParcelMachine" onchange="">
+                <option selected id="userParcelMachineDefault">Выбрать</option>
+                <option value="1" id="userParcelMachineFirst">Первый почтовый автомат</option>
+                <option value="2" id="userParcelMachineSecond">Второй почтовый автомат</option>
+                <option value="3" id="userParcelMachineThird">Третий почтовый автомат</option>
+              </select>
+              <select class="custom-select collapse" id="deliveryInDealership" onchange="">
+                <option selected id ="userDealershipDefault">Выбрать</option>
+                <option value="1" id="userDealershipFirst">Первое представительство</option>
+                <option value="2" id="userDealershipSecond">Второе представительство</option>
+                <option value="3" id="userDealershipThird">Третье представительство</option>
+              </select>
+            </div>
+            <hr/>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="agreeTermsCheck">
+              <label class="form-check-label" for="agreeTermsCheck" id="agreeLabel">
+                Я подтверждаю, что мне есть 18 лет.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="confirmTermsCheck" required>
+              <label class="form-check-label" for="confirmTermsCheck" id="confirmLabel">
+                Я согласен с правилами предоставления услуг.
+              </label>
+            </div>
+            <button type="button" style="margin-top: 20px;" id="formButtonOk" class="btn btn-primary col-12" onclick="OkButton()">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Внимание!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CloseModal();">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="errorModalMessage">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="errorModalButtonOk" onclick="CloseModal();">Ок</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"></script>
+  </body>
+</html>
