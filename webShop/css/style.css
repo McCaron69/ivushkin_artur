@@ -1,0 +1,71 @@
+.header {
+  height: 73px;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  left: 0px;
+  width: 100%;
+  z-index: 1000;
+}
+.logo {
+  text-align: center;
+  line-height: 70px;
+  display: inline-block;
+}
+.logo a {
+  font-size: 21px;
+  color: white;
+}
+.logo a:hover{
+  text-decoration: none;
+  color: white;
+}
+.account_auth {
+  float: right;
+  display: inline-block;
+  line-height: 70px;
+}
+.header_content {
+  margin: 0 auto 0 auto;
+}
+.account_auth .btn-group {
+  margin-left: 15px;
+}
+.account_auth .btn-group .dropdown-menu .dropdown-item {
+  line-height: 1.5;
+}
+.main_content {
+  top: 103px;
+}
+.news_sidebar {
+  padding-top: 10px;
+}
+.products_list {
+  padding-top: 40px;
+}
+.category-title {
+  font-size: 21px;
+  font-weight: 500;
+}
+.card-title a {
+  color: black;
+}
+.card-title a:hover {
+  text-decoration: none;
+}
+.footer {
+  height: 300px;
+  padding-top: 80px;
+}
+.footer-title {
+  font-size: 21px;
+  font-weight: 500;
+}
+.product_info {
+  padding-top: 40px;
+}
+.product-title {
+  font-size: 21px;
+  font-weight: 500;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
